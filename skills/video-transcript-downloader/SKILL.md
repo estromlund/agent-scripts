@@ -6,17 +6,19 @@ description: Download videos, audio, subtitles, and clean paragraph-style transc
 # Video Transcript Downloader
 
 `./scripts/vtd.js` can:
+
 - Print a transcript as a clean paragraph (timestamps optional).
 - Download video/audio/subtitles.
 
 Transcript behavior:
+
 - YouTube: fetch via `youtube-transcript-plus` when possible.
 - Otherwise: pull subtitles via `yt-dlp`, then clean into a paragraph.
 
 ## Setup
 
 ```bash
-cd ~/Projects/agent-scripts/skills/video-transcript-downloader && npm ci
+cd ~/Developer/agent-scripts/skills/video-transcript-downloader && npm ci
 ```
 
 ## Transcript (default: clean paragraph)

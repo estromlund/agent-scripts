@@ -24,7 +24,7 @@ def _slug(text: str, max_len: int = 60) -> str:
 
 
 def _default_out_dir() -> str:
-    projects_tmp = os.path.expanduser("~/Projects/tmp")
+    projects_tmp = os.path.expanduser("~/Developer/tmp")
     if os.path.isdir(projects_tmp):
         return os.path.join(projects_tmp, f"openai-image-gen-{_stamp()}")
     return os.path.join(os.getcwd(), "tmp", f"openai-image-gen-{_stamp()}")
