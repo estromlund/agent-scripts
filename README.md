@@ -29,7 +29,8 @@ Additional skills (copied 2025-12-31) are from @Dimillian’s public `Dimillian/
 ## Docs Lister (`scripts/docs-list.ts`)
 
 - **What it is:** tsx script that walks `docs/`, enforces front-matter (`summary`, `read_when`), and prints the summaries surfaced by `pnpm run docs:list`. Other repos can wire the same command into their onboarding flow.
-- **Binary build:** `bin/docs-list` is the compiled Bun CLI; regenerate it after editing `scripts/docs-list.ts` via `bun build scripts/docs-list.ts --compile --outfile bin/docs-list`.
+- **Binary build:** Run it with `bun scripts/docs-list.ts`.
+- **Targeting another repo:** Run it from that repo so it picks up `./docs`, or pass `--root <repo>` / `--docs <path>` (or `DOCS_ROOT` / `DOCS_DIR`).
 
 ## Browser Tools (`bin/browser-tools`)
 

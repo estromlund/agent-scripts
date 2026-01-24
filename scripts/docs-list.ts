@@ -1,12 +1,87 @@
 #!/usr/bin/env tsx
 
-import { readdirSync, readFileSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const docsListFile = fileURLToPath(import.meta.url);
 const docsListDir = dirname(docsListFile);
-const DOCS_DIR = join(docsListDir, '..', 'docs');
+const repoRoot = resolve(docsListDir, '..');
+
+function readFlagValue(args: string[], flag: string): string | null {
+  const idx = args.indexOf(flag);
+  if (idx === -1) {
+    return null;
+  }
+  const value = args[idx + 1];
+  if (!value || value.startsWith('-')) {
+    return '';
+  }
+  return value;
+}
+
+function isInsideRepoRoot(cwd: string): boolean {
+  const rel = relative(repoRoot, cwd);
+  return rel === '' || (!rel.startsWith('..') && !rel.startsWith('../'));
+}
+
+function resolveDocsDir(): string {
+  const args = process.argv.slice(2);
+  if (args.includes('--help') || args.includes('-h')) {
+    console.log(
+      'Usage: bun scripts/docs-list.ts [--docs <path>] [--root <path>]\n' +
+        '  --docs <path>  Explicit docs directory.\n' +
+        '  --root <path>  Repo root; docs assumed at <root>/docs.\n' +
+        'Env vars: DOCS_DIR or DOCS_ROOT.'
+    );
+    process.exit(0);
+  }
+
+  const docsArg = readFlagValue(args, '--docs');
+  if (docsArg !== null) {
+    if (!docsArg) {
+      console.error('Error: --docs requires a path.');
+      process.exit(1);
+    }
+    return resolve(docsArg);
+  }
+
+  const rootArg = readFlagValue(args, '--root');
+  if (rootArg !== null) {
+    if (!rootArg) {
+      console.error('Error: --root requires a path.');
+      process.exit(1);
+    }
+    return resolve(rootArg, 'docs');
+  }
+
+  const docsDirEnv = process.env.DOCS_DIR?.trim();
+  if (docsDirEnv) {
+    return resolve(docsDirEnv);
+  }
+
+  const docsRootEnv = process.env.DOCS_ROOT?.trim();
+  if (docsRootEnv) {
+    return resolve(docsRootEnv, 'docs');
+  }
+
+  const cwdDocs = resolve(process.cwd(), 'docs');
+  if (existsSync(cwdDocs)) {
+    return cwdDocs;
+  }
+
+  const repoDocs = resolve(repoRoot, 'docs');
+  if (isInsideRepoRoot(process.cwd()) && existsSync(repoDocs)) {
+    return repoDocs;
+  }
+
+  console.error(
+    'Error: docs directory not found. Provide --docs <path>, --root <path>, or set DOCS_DIR/DOCS_ROOT.'
+  );
+  process.exit(1);
+}
+
+const DOCS_DIR = resolveDocsDir();
 
 const EXCLUDED_DIRS = new Set(['archive', 'research']);
 
@@ -122,7 +197,7 @@ function extractMetadata(fullPath: string): {
   return { summary: normalized, readWhen };
 }
 
-console.log('Listing all markdown files in docs folder:');
+console.log(`Listing all markdown files in docs folder: ${DOCS_DIR}`);
 
 const markdownFiles = walkMarkdownFiles(DOCS_DIR);
 
