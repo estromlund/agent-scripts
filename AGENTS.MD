@@ -70,7 +70,7 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Branch changes require user consent.
 - Destructive ops forbidden unless explicit (`reset --hard`, `clean`, `restore`, `rm`, …).
 - Remotes under `~/Developer`: prefer HTTPS; flip SSH->HTTPS before pull/push.
-- Commit helper: call `~/Developer/agent-scripts/scripts/committer` directly (no PATH). If repo has `./scripts/committer`, use that.
+- Commit workflow: stage only intended files with `git add <files>`, then commit with `git commit -m "<type>: <summary>"`.
 - Don’t delete/rename unexpected stuff; stop + ask.
 - No repo-wide S/R scripts; keep edits small/reviewable.
 - Avoid manual `git stash`; if Git auto-stashes during pull/rebase, that’s fine (hint, not hard guardrail).
@@ -105,9 +105,10 @@ Read `~/Developer/agent-scripts/tools.md` for the full tool catalog if it exists
 - Screen tools: `peekaboo`. Cmds: `capture`, `see`, `click`, `list`, `tools`, `permissions status`.
 - Needs Screen Recording + Accessibility
 
-### committer
+### git
 
-- Commit helper. Call `~/Developer/agent-scripts/scripts/committer` directly (no PATH). Repo may also ship `./scripts/committer`.
+- Stage only intended files: `git add <files>`.
+- Create commits directly: `git commit -m "<type>: <summary>"`.
 
 ### trash
 

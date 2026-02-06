@@ -54,7 +54,7 @@ This repository includes the following commands in both `.claude/commands/` and 
 **Available commands:**
 - `/automerge` - Automated PR review & merge
 - `/build` - Build validation with fixes
-- `/commit` - Selective commit helper
+- `/commit` - Selective commit workflow (`git add` + `git commit`)
 - `/commitgroup` - Group multiple commits logically
 - `/cppp` - Commit all changes in grouped commits and push
 - `/different` - Post-review reflection: what would you change?

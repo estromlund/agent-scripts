@@ -29,8 +29,9 @@ Do (end-to-end)
    - update `CHANGELOG.md` and mention `#<pr-number>` + `@$contrib`
 8) Full gate (BEFORE commit):
    - `pnpm lint && pnpm build && pnpm test`
-9) Commit via `committer` (include `#<pr-number>` + contributor in commit message):
-   - `committer "fix: <summary> (#<pr-number>) (thanks @$contrib)" CHANGELOG.md <changed files>`
+9) Commit with git (include `#<pr-number>` + contributor in commit message):
+   - `git add CHANGELOG.md <changed files>`
+   - `git commit -m "fix: <summary> (#<pr-number>) (thanks @$contrib)"`
    - capture `land_sha=$(git rev-parse HEAD)`
 10) Push updated PR branch (rebase => usually needs force):
    - `git push --force-with-lease`

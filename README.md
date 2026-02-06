@@ -11,7 +11,7 @@ Additional skills (copied 2025-12-31) are from @Dimillian’s public `Dimillian/
 
 ## Syncing With Other Repos
 
-- Treat this repo as the canonical mirror for the shared guardrail helpers. Whenever you edit `scripts/committer` or `scripts/docs-list.ts` in any repo, copy the change here and then back out to every other repo that carries the same helpers so they stay byte-identical.
+- Treat this repo as the canonical mirror for the shared guardrail helpers. Whenever you edit `scripts/docs-list.ts` in any repo, copy the change here and then back out to every other repo that carries the same helpers so they stay byte-identical.
 - When someone says “sync agent scripts,” pull the latest changes here, ensure downstream repos have the pointer-style `AGENTS.MD`, copy any helper updates into place, and reconcile differences before moving on.
 - Keep every file dependency-free and portable: the scripts must run in isolation across repos. Do not add `tsconfig` path aliases, shared source folders, or any other Sweetistics-specific imports—inline tiny helpers or duplicate the minimum code needed so the mirror stays self-contained.
 
@@ -22,9 +22,10 @@ Additional skills (copied 2025-12-31) are from @Dimillian’s public `Dimillian/
 - Do **not** copy the `[shared]` or `<tools>` blocks into other repos anymore. Instead, keep this repo updated and have downstream workspaces re-read `AGENTS.MD` when starting work.
 - When updating the shared instructions, edit `agent-scripts/AGENTS.MD`, mirror the change into `~/AGENTS.MD` (Codex global), and let downstream repos continue referencing the pointer.
 
-## Committer Helper (`scripts/committer`)
+## Git Commit Workflow
 
-- **What it is:** Bash helper that stages exactly the files you list, enforces non-empty commit messages, and creates the commit.
+- **What it is:** Use native git commands to stage only the intended files, then commit with a Conventional Commit message.
+- **Example:** `git add CHANGELOG.md docs/RELEASING.md && git commit -m "docs: update release notes"`
 
 ## Docs Lister (`scripts/docs-list.ts`)
 
@@ -41,7 +42,7 @@ Additional skills (copied 2025-12-31) are from @Dimillian’s public `Dimillian/
 
 ## Sync Expectations
 
-- This repository is the canonical mirror for the guardrail helpers used in mcporter and other Sweetistics projects. Whenever you edit `scripts/committer`, `scripts/docs-list.ts`, or related guardrail files in another repo, copy the changes back here immediately (and vice versa) so the code stays byte-identical.
+- This repository is the canonical mirror for the guardrail helpers used in mcporter and other Sweetistics projects. Whenever you edit `scripts/docs-list.ts` or related guardrail files in another repo, copy the changes back here immediately (and vice versa) so the code stays byte-identical.
 - When someone asks to “sync agent scripts,” update this repo, compare it against the active project, and reconcile differences in both directions before continuing.
 
 ## @estromlund Agent Instructions (pointer workflow)

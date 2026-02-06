@@ -45,7 +45,7 @@ summary: Timeline of guardrail helper changes mirrored from Sweetistics and rela
 ## 2025-11-08 — Guardrail Sync & Docs Hardening
 - Synced guardrail helpers with Sweetistics so downstream repos share the same runner, docs-list helper, and supporting scripts.
 - Expanded README guidance around runner usage, portability, and multi-repo sync expectations.
-- Added committer lock cleanup, tightened path ignores, and refreshed misc. helper utilities (e.g., `toArray`) to reduce drift across repos.
+- Added commit helper lock cleanup, tightened path ignores, and refreshed misc. helper utilities (e.g., `toArray`) to reduce drift across repos.
 
 ## 2025-11-08 — Initial Toolkit Import
 - Established the repo with the Sweetistics guardrail toolkit (runner, git policy enforcement, docs-list helper, etc.).
